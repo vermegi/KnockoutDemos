@@ -81,6 +81,8 @@
     });
 
     function render_dossier_grid(ctx) {
+        viewModel.dossiers.removeAll();
+        viewModel.dossiers(ctx.Data);
     }
 
     var viewModel = {
