@@ -9,21 +9,24 @@
                 <fieldset>
                     <dl>
                         <h2>Scan info</h2>
-                        @Html.Label("Receipt date") @Html.TextBox("receiptdate", string.Empty, new Dictionary<string, object> { { "class", "date" } })                
+                        @Html.Label("Receipt date") 
+                        @Html.TextBox("receiptdate", string.Empty, new Dictionary<string, object> { { "class", "date" } })                
                     </dl>
-                    <h2>Dossier info</h2>
-                    <div>
-                        @Html.Hidden("file", Model.Scan.File)
+                    <dl>
+                        <h2>Dossier info</h2>
+                        <div>
+                            @Html.Hidden("file", Model.Scan.File)
 
-                        <div id="linkDiv" @(Model.Scan.DossierId == 0 ? "class=hidden" : "")>
-                            <div>Dossier: <span id="dossierNumberText">@Model.Scan.DossierNumber</span></div>
-                            @Html.Hidden("dossierNumber", Model.Scan.DossierNumber)
-                            <input type="submit" value="Link Scan to this dossier"/>
+                            <div id="linkDiv" @(Model.Scan.DossierId == 0 ? "class=hidden" : "")>
+                                <div>Dossier: <span id="dossierNumberText">@Model.Scan.DossierNumber</span></div>
+                                @Html.Hidden("dossierNumber", Model.Scan.DossierNumber)
+                                <input type="submit" value="Link Scan to this dossier"/>
+                            </div>
+                            <div id="message" @(Model.Scan.DossierId == 0 ? "": "class=hidden")>
+                                There is no dossier to link to. You should search for one.
+                            </div>
                         </div>
-                        <div id="message" @(Model.Scan.DossierId == 0 ? "": "class=hidden")>
-                            There is no dossier to link to. You should search for one.
-                        </div>
-                    </div>
+                    </dl>
                 </fieldset>
             </div>
         
@@ -32,13 +35,24 @@
     <h3><a href="#">Search for a dossier</a></h3>
     <div>
         <div id="search">
-            @using(Html.BeginForm("Search", "Dossier"))
+            @using (Html.BeginForm("Search", "Dossier", FormMethod.Post, new { @id = "dossierForm" }))
             {
                 <fieldset>
-                    <dl>@Html.LabelFor(m => m.Dossier.DossierNumber) @Html.TextBoxFor(m => m.Dossier.DossierNumber)</dl>
-                    <dl>@Html.LabelFor(m => m.Dossier.OwnerLastName) @Html.TextBoxFor(m => m.Dossier.OwnerLastName)</dl>
-                    <dl>@Html.LabelFor(m => m.Dossier.OwnerFirstName) @Html.TextBoxFor(m => m.Dossier.OwnerFirstName)</dl>
-                    <dl><input type="submit" value="Search"/></dl>
+                    <dl>
+                        @Html.LabelFor(m => m.Dossier.DossierNumber) 
+                        @Html.TextBoxFor(m => m.Dossier.DossierNumber)
+                    </dl>
+                    <dl>
+                        @Html.LabelFor(m => m.Dossier.OwnerLastName) 
+                        @Html.TextBoxFor(m => m.Dossier.OwnerLastName)
+                    </dl>
+                    <dl>
+                        @Html.LabelFor(m => m.Dossier.OwnerFirstName) 
+                        @Html.TextBoxFor(m => m.Dossier.OwnerFirstName)
+                    </dl>
+                    <dl>
+                        <input type="submit" value="Search"/>
+                    </dl>
                 </fieldset>
             }
         </div>
@@ -58,3 +72,14 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#dossierForm").ajaxForm({
+            success: render_dossier_grid
+        });
+    });
+
+    function render_dossier_grid(ctx) {
+    }
+</script>
