@@ -1,0 +1,56 @@
+﻿@model KnockoutDemos.ViewModels.ScanViewModel
+
+<div class="accordion">
+    <h3><a href="#">Link a dossier to the file</a></h3>
+    <div>
+        @using (Html.BeginForm("Link", "Scan"))
+        {
+            <h2>Scan info</h2>
+            <div>
+                Receipt date: @Html.TextBox("receiptdate", string.Empty, new Dictionary<string, object> { { "class", "date" } })
+            </div>
+        
+            <h2>Dossier info</h2>
+            <div>
+                @Html.Hidden("file", Model.Scan.File)
+
+                <div id="linkDiv" @(Model.Scan.DossierId == 0 ? "class=hidden" : "")>
+                    <div>Dossier: <span id="dossierNumberText">@Model.Scan.DossierNumber</span></div>
+                    @Html.Hidden("dossierNumber", Model.Scan.DossierNumber)
+                    <input type="submit" value="Link Scan to this dossier"/>
+                </div>
+                <div id="message" @(Model.Scan.DossierId == 0 ? "": "class=hidden")>
+                    There is no dossier to link to. You should search for one.
+                </div>
+            </div>
+        }
+    </div>
+    <h3><a href="#">Search for a dossier</a></h3>
+    <div>
+        <div id="search">
+            @using(Html.BeginForm("Search", "Dossier"))
+            {
+                <fieldset>
+                    <dl>@Html.LabelFor(m => m.Dossier.DossierNumber) @Html.TextBoxFor(m => m.Dossier.DossierNumber)</dl>
+                    <dl>@Html.LabelFor(m => m.Dossier.OwnerLastName) @Html.TextBoxFor(m => m.Dossier.OwnerLastName)</dl>
+                    <dl>@Html.LabelFor(m => m.Dossier.OwnerFirstName) @Html.TextBoxFor(m => m.Dossier.OwnerFirstName)</dl>
+                    <dl><input type="submit" value="Search"/></dl>
+                </fieldset>
+            }
+        </div>
+        <div id="searchResult" class="hidden">
+            <table id="resultTable">
+                <thead>
+                    <th>DossierNumber</th>
+                    <th>OwnerLastName</th>
+                    <th>OwnerFirstName</th>
+                    <th>Detail</th>
+                    <th>Link</th>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

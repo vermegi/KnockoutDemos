@@ -1,0 +1,18 @@
+.hidden {
+    display: none;
+}
+
+label {
+     float:left; 
+     position:relative; 
+     width: 200px;
+}
+
+input {
+     float:left; 
+     position:relative;
+}
+
+dl {
+     clear:both;     
+}
