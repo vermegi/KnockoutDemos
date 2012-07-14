@@ -1,6 +1,6 @@
 ﻿@model KnockoutDemos.ViewModels.ScanViewModel
 
-<div class="accordion">
+<div class="accordion" id="myAccordion">
     <h3><a href="#">Link a dossier to the file</a></h3>
     <div>
         @using (Html.BeginForm("Link", "Scan"))
@@ -10,7 +10,7 @@
                     <dl>
                         <h2>Scan info</h2>
                         @Html.Label("Receipt date") 
-                        @Html.TextBox("receiptdate", string.Empty, new Dictionary<string, object> { { "class", "date" } })                
+                        @Html.TextBox("receiptdate", string.Empty, new { @class = "date"  })                
                     </dl>
                     <dl>
                         <h2>Dossier info</h2>
@@ -84,19 +84,34 @@
 </div>
 
 <script type="text/javascript">
+    var myAccordion = $("#myAccordion");
+
     $(function () {
         $("#dossierForm").ajaxForm({
             success: render_dossier_grid
         });
+
+        ko.applyBindings(viewModel);
     });
 
     function render_dossier_grid(ctx) {
         $("#searchResult").removeClass("hidden");
         viewModel.dossiers.removeAll();
         viewModel.dossiers(ctx.Data);
+        myAccordion.accordion("resize");
     }
 
     var viewModel = {
-        dossiers: ko.observableArray([])
+        dossiers: ko.observableArray([]),
+
+        useDossier: function (dossierVM) {
+            var dossierNumber = dossierVM.DossierNumber;
+            myAccordion.accordion({ active: 0 });
+            $("#dossierNumber").val(dossierNumber);
+            $("#dossierNumberText").text(dossierNumber);
+
+            $("#linkDiv").removeClass('hidden');
+            $("#message").addClass('hidden');
+        }
     };
 </script>

@@ -17,25 +17,25 @@ namespace KnockoutDemos.Controllers
                                             {
                                                 new Dossier
                                                     {
-                                                        DossierNumber = "123-abc",
+                                                        DossierNumber = "123abc",
                                                         OwnerFirstName = "John",
                                                         OwnerLastName = "Doe"
                                                     },
                                                 new Dossier
                                                     {
-                                                        DossierNumber = "456-def",
+                                                        DossierNumber = "456def",
                                                         OwnerFirstName = "Jeff",
                                                         OwnerLastName = "Smith"
                                                     },
                                                 new Dossier
                                                     {
-                                                        DossierNumber = "789-ghi",
+                                                        DossierNumber = "789ghi",
                                                         OwnerFirstName = "Peter",
                                                         OwnerLastName = "Jackson"
                                                     },
                                                 new Dossier
                                                     {
-                                                        DossierNumber = "321-jkl",
+                                                        DossierNumber = "321jkl",
                                                         OwnerFirstName = "Carl",
                                                         OwnerLastName = "Turner"
                                                     },
