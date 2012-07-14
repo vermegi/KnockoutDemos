@@ -65,8 +65,18 @@
                     <th>Detail</th>
                     <th>Link</th>
                 </thead>
-                <tbody>
-                    
+                <tbody data-bind="foreach:dossiers">
+                    <tr>
+                        <td data-bind="text:DossierNumber"></td>
+                        <td data-bind="text:OwnerFirstName"></td>
+                        <td data-bind="text:OwnerLastName"></td>
+                        <td>
+                            <a data-bind="attr: {href: DetailLink}">Detail</a>
+                        </td>
+                        <td>
+                            <a href="#" data-bind="click: $parent.useDossier">Use this file for linking</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -81,11 +91,12 @@
     });
 
     function render_dossier_grid(ctx) {
+        $("#searchResult").removeClass("hidden");
         viewModel.dossiers.removeAll();
         viewModel.dossiers(ctx.Data);
     }
 
     var viewModel = {
-        dossiers = ko.observableArray([])
+        dossiers: ko.observableArray([])
     };
 </script>
